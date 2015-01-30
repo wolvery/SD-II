@@ -510,7 +510,7 @@ public class MainActivity extends ActionBarActivity {
         Ovelha ovelha =  new Ovelha(Ocupante.Ovelha,casaAcao);
         Lobo loboo =  meuJogador.getMeuLobo();
         if (dinamicaJogo.devorarOvelha(loboo,ovelha)) {
-            atualizarAtaqueLobo(ultimaCasaPressionada,casaAcao);
+            atualizarAtaqueLobo(ultimaCasaPressionada, casaAcao);
             loboo.setCasaPersonagem(casaAcao);
             loboo.comerOvelha();
             meuJogador.setMeuLobo(loboo);
@@ -520,13 +520,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void destruirCerca(){
-        Figurante cerca = (Figurante) dinamicaJogo.casaOcupadaPorElemento(casaAcao);
-        Lobo lobo = (Lobo) dinamicaJogo.casaOcupadaPorElemento(ultimaCasaPressionada);
+        Figurante cerca = new Figurante (Ocupante.Cerca,casaAcao);
+        Lobo lobo = meuJogador.getMeuLobo();
         if (dinamicaJogo.destruirCerca(lobo,cerca)){
+            atualizarAtaqueLobo(ultimaCasaPressionada, casaAcao);
             lobo.destruirCerca();
             lobo.setCasaPersonagem(casaAcao);
             meuJogador.setMeuLobo(lobo);
-            atualizarAtaqueLobo(ultimaCasaPressionada,casaAcao);
         }
     }
 
