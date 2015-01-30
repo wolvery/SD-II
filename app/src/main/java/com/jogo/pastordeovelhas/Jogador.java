@@ -132,17 +132,30 @@ public class Jogador {
         }
         return false;
     }
+    public Ovelha findOvelha(Casa casaAVerificar){
+        Iterator<Ovelha> iterOvelha = grupoDeOvelhas.iterator();
+        while (iterOvelha.hasNext()) {
+            Ovelha elemento = iterOvelha.next();
+            if (elemento.getCasaPersonagem().comparaCasa(casaAVerificar) ){
+                return elemento;
+            }
+        }
+        return null;
+    }
     /**
      * Alimenta ovelha.
      * @param ovelha
      * @return
      */
-    public Boolean alimentaOvelha(Ovelha ovelha){
+    public Boolean alimentaOvelha(Casa casaAverificar){
+        Ovelha ovelha = findOvelha(casaAverificar);
+        if (ovelha!=null){
         grupoDeOvelhas.remove(ovelha);
         ovelha.alimentarOvelha();
         if (ovelha.ovelhaViva()) {
             grupoDeOvelhas.add(ovelha);
             return true;
+        }
         }
         return false;
     }

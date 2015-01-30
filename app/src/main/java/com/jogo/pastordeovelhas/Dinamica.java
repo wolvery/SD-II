@@ -105,6 +105,7 @@ public class Dinamica {
 			Personagem elemento = iter.next();
 			if (elemento.getCasaPersonagem().comparaCasa(casaAVerificar)) {
 				figurantes.remove(elemento);
+                break;
 			}
 		}
 	}
@@ -120,6 +121,7 @@ public class Dinamica {
 			if (elemento.getCasaPersonagem().comparaCasa(casaAVerificar)) {
 				figurantes.remove(elemento);
 				figurantes.add(new Figurante(Ocupante.Vazio,casaAVerificar));
+                break;
 			}
 		}
 	}
@@ -209,12 +211,10 @@ public class Dinamica {
 			//verificar se lobo esta proximo de ovelha
 			if (diferencaEntreCasas(lobo.getCasaPersonagem(), ovelha.getCasaPersonagem())){
 				Casa antigacasaDoLobo = lobo.getCasaPersonagem();
-				lobo.comerOvelha();
-				ovelha.sofrerAtaque();
-				lobo.setCasaPersonagem(ovelha.getCasaPersonagem());				
-				figurantes.remove(ovelha);
-				figurantes.add(new Figurante(Ocupante.Vazio,antigacasaDoLobo));
-				return true;
+				esvaziarCasa(antigacasaDoLobo);
+                esvaziarCasa(ovelha.getCasaPersonagem());
+                ocuparCasa(ovelha.getCasaPersonagem(),Ocupante.Lobo);
+                return true;
 			}			
 		}
 		return false;
@@ -233,10 +233,9 @@ public class Dinamica {
 			//verificar se lobo esta proximo da cerca
 			if (diferencaEntreCasas(lobo.getCasaPersonagem(), cerca.getCasaPersonagem())){
 				Casa antigacasaDoLobo = lobo.getCasaPersonagem();				
-				lobo.destruirCerca();
-				lobo.setCasaPersonagem(cerca.getCasaPersonagem());
-				figurantes.remove(cerca);
-				figurantes.add(new Figurante(Ocupante.Vazio,antigacasaDoLobo));
+				esvaziarCasa(antigacasaDoLobo);
+                esvaziarCasa(cerca.getCasaPersonagem());
+                ocuparCasa(cerca.getCasaPersonagem(),Ocupante.Lobo);
 				return true;
 			}			
 		}
